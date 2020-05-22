@@ -1,11 +1,3 @@
-//BONUS
-///         1) Melhorar o sistema criando uma batalha real  até a morte de forma dinamica, 
-//checando vida e determinando a vitória automaticamente em Loop até o final da batalha.
-//          2) Criar Eventos e Interface html para o jogo, não necessitando de loop e 
-//definição completa da batalha, tornando interativo e jogavel. Usando botões de ataque por exemplo.
-
-//METODO -> Funcao que faz parte de objeto, logo o metodo referencia o objeto em si
-// Funcao que nao faz parte de um objeto , referencia Global
 class personagem {
     constructor(nome,vida,vida_atual,ataque){
         this.nome = nome;
@@ -17,12 +9,10 @@ class personagem {
 
      atacar(x){
          console.log(this.nome+" Ataca "+x.nome)  
-         
-         x.receberDano(Math.floor(Math.random() *this.ataque+1))
-         
+         x.receberDano(Math.floor(Math.random() *this.ataque+1),this)
         }
         
-    receberDano(x){
+    receberDano(x,objeto_ataque){
         this.vida_atual=this.vida_atual-x
         console.log(" e recebe "+x+" de Dano")
         if (x==this.ataque){
@@ -34,7 +24,9 @@ class personagem {
             
             console.log(this.nome+" Moleu")
             end();
+            objeto_ataque
         }  
+        
     }
     cure(x){
         var magic = (this.ataque/2);
@@ -50,6 +42,7 @@ class personagem {
 
 var jogador = new personagem('[Sabio Qualhada]',100,100,20)
 var monstro = new personagem("[Cutia do Mapiri]"   ,100,100,20)
+
 
 function turno(){
     for (let i = 1; jogador.vida_atual!=0 && monstro.vida_atual!=0; i++) {  
